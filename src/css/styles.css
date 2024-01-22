@@ -1,24 +1,135 @@
-/**
-  |============================
-  | include css partials with
-  | default @import url()
-  |============================
-*/
 @import url('./reset.css');
 @import url('./header.css');
 
-:root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 24px;
+/* montserrat-regular - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Montserrat';
+  font-style: normal;
   font-weight: 400;
+  src: url('../fonts/montserrat-v26-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* montserrat-600 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  src: url('../fonts/montserrat-v26-latin-600.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* montserrat-700 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../fonts/montserrat-v26-latin-700.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
 
-  color: #242424;
-  background-color: rgba(255, 255, 255, 0.87);
+body {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  color: #2e2f42;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  background-color: #fafafa;
+}
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+/* utility clases */
+.wrapper {
+  margin: 0 auto;
+  max-width: 375px;
+  padding: 0 20px;
+}
+
+@media screen and (min-width: 768px) {
+  .wrapper {
+    max-width: 736px;
+    padding: 0 16px;
+  }
+}
+@media screen and (min-width: 1168px) {
+  .wrapper {
+    max-width: 1168px;
+  }
+}
+.date-time-input {
+  padding: 8px 16px;
+  width: 272px;
+  border-radius: 4px;
+  border: 1px solid #808080;
+}
+.date-time-input:hover {
+  border-radius: 4px;
+  border: 1px solid #000;
+}
+.date-time-input:active {
+  border-radius: 4px;
+  border: 1px solid #4e75ff;
+}
+.btn {
+  padding: 8px 16px;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 8px;
+  background-color: #4e75ff;
+  border: none;
+  outline: none;
+}
+.btn:is(:hover, :focus) {
+  background: #6c8cff;
+}
+.btn:disabled {
+  background-color: #cfcfcf;
+}
+.btn-start {
+}
+.timer {
+  margin-top: 32px;
+  display: flex;
+  gap: 24px;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.value {
+  font-size: 40px;
+  line-height: 1.2;
+}
+.label {
+  /* body style */
+}
+.flatpickr-day.selected {
+  background-color: #4e75ff;
+}
+.flatpickr-day:hover {
+  background-color: #c1c1c1 !important;
+}
+.flatpickr-day.today {
+  border: 1px solid #4e75ff !important;
+  background-color: transparent !important;
+  color: inherit !important;
+}
+.popup-window {
+  padding: 20px 64px 20px 20px !important;
+  border-radius: 4px !important;
+  border-bottom: 2px solid #ffbebe !important;
+  background: #ef4040 !important;
+}
+.iziToast-message {
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important; /* 150% */
+  letter-spacing: 0.5px !important;
+}
+.iziToast-close {
+  opacity: 1 !important;
+  width: 24px !important;
+  right: 24px !important;
+  background-size: 16px !important;
+}
+.iziToast-close:hover {
+  opacity: 0.6 !important;
 }
