@@ -60,6 +60,7 @@ const options = {
 flatpickr('#datetime-picker', options);
 btn.addEventListener('click', () => {
   inputDate.disabled = true;
+  btn.disabled = true;
   const currentTime = new Date().getTime();
   let msToCount = userSelectedDate.getTime() - currentTime;
   const IntervalId = setInterval(function () {
