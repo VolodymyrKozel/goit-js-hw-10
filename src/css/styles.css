@@ -88,8 +88,6 @@ input {
 .btn:disabled {
   background-color: #cfcfcf;
 }
-.btn-start {
-}
 .timer {
   margin-top: 32px;
   display: flex;
@@ -103,9 +101,6 @@ input {
 .value {
   font-size: 40px;
   line-height: 1.2;
-}
-.label {
-  /* body style */
 }
 .flatpickr-day.selected {
   background-color: #4e75ff;
