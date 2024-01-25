@@ -1,32 +1,65 @@
-const registerForm = document.querySelector(".form");
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
 
-registerForm.addEventListener("submit", handleSubmit);
+const registerForm = document.querySelector('.form');
+registerForm.addEventListener('submit', handleSubmit);
+const options = {
+  value: '',
+  delay: 1000,
+  shouldResolve: true,
+};
 
-function handleSubmit(event) {
-  event.preventDefault();
-  const form = event.target;
-/*   const login = form.elements.login.value;
-  const password = form.elements.password.value; */
-  
-/*   if (login === "" || password === "") {
-    return console.log("Please fill in all the fields!");
-  } */
+iziToast.settings({
+  theme: 'dark',
+  icon: false,
+  position: 'topRight',
+  resetOnHover: true,
+  transitionIn: 'flipInX',
+  transitionOut: 'flipOutX',
+});
 
-/*   */
+function handleSubmit(e) {
+  e.preventDefault();
+  const form = e.target.elements;
+  options.delay = form.delay.value;
+  if (form.state.value === 'fulfilled') {
+    options.shouldResolve = true;
+    options.value = `Fulfilled promise in ${options.delay}ms`;
+  } else {
+    options.shouldResolve = !options.shouldResolve;
+    options.value = `Rejected promise in ${options.delay}ms`;
+  }
+
+  makePromise(options)
+    .then(value =>
+      iziToast.success({
+        class: 'izi-toast-success-style',
+        title: 'OK',
+        message: value,
+        backgroundColor: '#59A10D',
+        iconUrl: './img/ok.svg',
+      })
+    )
+    .catch(error =>
+      iziToast.error({
+        class: 'izi-toast-error-style',
+        title: 'Error',
+        message: error,
+        backgroundColor: '#EF4040',
+        iconUrl: './img/octagon.svg',
+      })
+    );
   form.reset();
 }
-const makePromise = ({ value, delay, shouldResolve = true }) => {
-    return new Promise((resolve, reject) => {
-         setTimeout(() => {
-                  if(shouldResolve) {
-                      resolve(value)
-                  } else {
-                      reject(value)
-                  }
-              }, delay);
-    });
-  };
 
-  makePromise({ value: "A", delay: 1000 })
-	.then(value => console.log(value)) // "A"
-	.catch(error => console.log(error));
+const makePromise = ({ value, delay, shouldResolve }) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (shouldResolve) {
+        resolve(value);
+      } else {
+        reject(value);
+      }
+    }, delay);
+  });
+};

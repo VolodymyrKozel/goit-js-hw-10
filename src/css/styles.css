@@ -1,3 +1,4 @@
+@import url('node_modules/modern-normalize/modern-normalize.css');
 @import url('./reset.css');
 @import url('./header.css');
 
@@ -25,6 +26,9 @@
   font-weight: 700;
   src: url('../fonts/montserrat-v26-latin-700.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
+/* * {
+  box-sizing: border-box;
+} */
 
 body {
   font-family: 'Montserrat', sans-serif;
@@ -53,17 +57,20 @@ body {
     max-width: 1168px;
   }
 }
-.date-time-input {
+.date-time-input,
+input {
   padding: 8px 16px;
-  width: 272px;
+  min-width: 272px;
   border-radius: 4px;
   border: 1px solid #808080;
 }
-.date-time-input:hover {
+.date-time-input:hover,
+.input:hover {
   border-radius: 4px;
   border: 1px solid #000;
 }
-.date-time-input:active {
+.date-time-input:active,
+.input:active {
   border-radius: 4px;
   border: 1px solid #4e75ff;
 }
@@ -112,17 +119,104 @@ body {
   background-color: transparent !important;
   color: inherit !important;
 }
+.form {
+  width: 360px;
+  padding: 20px;
+}
+.input-number {
+  display: block;
+  margin-top: 8px;
+}
+.form-fieldset {
+  margin-top: 30px;
+  display: flex;
+  gap: 48px;
+}
+/* Customize the label (the container) */
+.form-label-radio {
+  /* display: block; */
+  position: relative;
+  padding-left: 32px;
+  cursor: pointer;
+  /* property controls whether the user can select text */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.form-label-radio input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  border: 1px solid #757575;
+  border-radius: 50%;
+  transition: border-color 250ms ease-in-out;
+}
+
+/* On mouse-over */
+.form-label-radio:hover input ~ .checkmark,
+.form-label-radio input:focus ~ .checkmark {
+  border-color: #000;
+}
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.form-label-radio input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.form-label-radio .checkmark:after {
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #4e75ff;
+  transform: translate(-50%, -50%);
+}
+.btn-form {
+  margin-top: 24px;
+}
+.input-number,
+.btn-form {
+  width: 100%;
+}
 .popup-window {
-  padding: 20px 64px 20px 20px !important;
-  border-radius: 4px !important;
   border-bottom: 2px solid #ffbebe !important;
   background: #ef4040 !important;
+}
+.izi-toast-success-style {
+  border-bottom: 2px solid #B5EA7C !important;
+
+
+}
+.izi-toast-error-style {
+  border-bottom: 2px solid #B51B1B !important;
 }
 .iziToast-message {
   font-size: 16px !important;
   font-weight: 400 !important;
-  line-height: 1.5 !important; /* 150% */
-  letter-spacing: 0.5px !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0.04em !important;
 }
 .iziToast-close {
   opacity: 1 !important;
@@ -132,4 +226,25 @@ body {
 }
 .iziToast-close:hover {
   opacity: 0.6 !important;
+}
+.iziToast-body {
+  color: #fff;
+  font-family: Montserrat !important;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5; /* 150% */
+  letter-spacing: 0.04em;
+}
+.izi-toast-layout {
+  border-radius: 4px;
+  padding: 20px 64px 20px 20px !important;
+}
+.iziToast-title {
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0.04em !important;
+}
+.iziToast-message {
+  color: #fff !important;
 }
