@@ -25,8 +25,8 @@ function handleSubmit(e) {
   if (form.state.value === 'fulfilled') {
     options.shouldResolve = true;
     options.value = `Fulfilled promise in ${options.delay}ms`;
-  } else {
-    options.shouldResolve = !options.shouldResolve;
+  } else  {
+    options.shouldResolve = false;
     options.value = `Rejected promise in ${options.delay}ms`;
   }
 
@@ -37,7 +37,7 @@ function handleSubmit(e) {
         title: 'OK',
         message: value,
         backgroundColor: '#59A10D',
-        iconUrl: './img/ok.svg',
+        iconUrl: '../img/ok.svg',
       })
     )
     .catch(error =>
@@ -46,7 +46,7 @@ function handleSubmit(e) {
         title: 'Error',
         message: error,
         backgroundColor: '#EF4040',
-        iconUrl: './img/octagon.svg',
+        iconUrl: '../img/octagon.svg',
       })
     );
   form.reset();
