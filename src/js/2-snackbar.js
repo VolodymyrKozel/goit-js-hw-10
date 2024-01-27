@@ -38,6 +38,7 @@ function handleSubmit(e) {
         message: value,
         backgroundColor: '#59A10D',
         iconUrl: '../img/ok.svg',
+        position: 'topRight',
       })
     )
     .catch(error =>
@@ -47,6 +48,7 @@ function handleSubmit(e) {
         message: error,
         backgroundColor: '#EF4040',
         iconUrl: '../img/octagon.svg',
+        position: 'topRight',
       })
     );
     this.reset();

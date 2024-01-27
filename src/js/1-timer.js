@@ -44,9 +44,8 @@ const options = {
         class: 'popup-window',
         timeout: 8000,
         messageColor: '#fff',
-        iconUrl: '../img/octagon.svg',
+        iconUrl: './img/octagon.svg',
         message: 'Please choose a date in the future',
-        position: 'topRight',
       });
       btn.disabled = true;
     } else {
@@ -76,8 +75,8 @@ btn.addEventListener('click', () => {
 
 iziToast.settings({
   resetOnHover: true,
-  icon: 'octagon',
   position: 'topRight',
+  icon: 'octagon',
   transitionIn: 'flipInX',
   transitionOut: 'flipOutX',
 });
