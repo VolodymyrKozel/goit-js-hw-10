@@ -49,7 +49,7 @@ function handleSubmit(e) {
         iconUrl: '../img/octagon.svg',
       })
     );
-  form.reset();
+    this.reset();
 }
 
 const makePromise = ({ value, delay, shouldResolve }) => {
