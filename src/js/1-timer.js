@@ -13,6 +13,37 @@ let userSelectedDate = {};
 //disable button
 btn.disabled = true;
 
+iziToast.settings({
+  theme: 'dark',
+  class: 'popup-window',
+  timeout: 8000,
+  messageColor: '#fff',
+  iconUrl: './img/octagon.svg',
+  resetOnHover: true,
+  position: 'topRight',
+  transitionIn: 'flipInX',
+  transitionOut: 'flipOutX',
+});
+
+const options = {
+  enableTime: true,
+  time_24hr: true,
+  defaultDate: new Date(),
+  minuteIncrement: 1,
+  onClose(selectedDates) {
+    if (selectedDates[0] < new Date()) {
+      iziToast.show({
+        message: 'Please choose a date in the future',
+      });
+      btn.disabled = true;
+    } else {
+      userSelectedDate = selectedDates[0];
+      btn.disabled = false;
+    }
+  },
+};
+flatpickr('#datetime-picker', options);
+
 function convertMs(ms) {
   // Number of milliseconds per unit of time
   const second = 1000;
@@ -32,51 +63,23 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 
-const options = {
-  enableTime: true,
-  time_24hr: true,
-  defaultDate: new Date(),
-  minuteIncrement: 1,
-  onClose(selectedDates) {
-    if (selectedDates[0] < new Date()) {
-      iziToast.show({
-        theme: 'dark',
-        class: 'popup-window',
-        timeout: 8000,
-        messageColor: '#fff',
-        iconUrl: './img/octagon.svg',
-        message: 'Please choose a date in the future',
-      });
-      btn.disabled = true;
-    } else {
-      userSelectedDate = selectedDates[0];
-      btn.disabled = false;
-    }
-  },
-};
-flatpickr('#datetime-picker', options);
 btn.addEventListener('click', () => {
   inputDate.disabled = true;
   btn.disabled = true;
   const currentTime = new Date().getTime();
   let msToCount = userSelectedDate.getTime() - currentTime;
   const IntervalId = setInterval(function () {
-    msToCount -= 1000;
     const timerObj = convertMs(msToCount);
     days.textContent = timerObj.days.toString().padStart(2, '0');
     hours.textContent = timerObj.hours.toString().padStart(2, '0');
     minutes.textContent = timerObj.minutes.toString().padStart(2, '0');
     seconds.textContent = timerObj.seconds.toString().padStart(2, '0');
+    msToCount -= 1000;
     if (msToCount <= 1000) {
       clearInterval(IntervalId);
+      iziToast.show({
+        message: 'Time up',
+      });
     }
   }, 1000);
-});
-
-iziToast.settings({
-  resetOnHover: true,
-  position: 'topRight',
-  icon: 'octagon',
-  transitionIn: 'flipInX',
-  transitionOut: 'flipOutX',
 });
