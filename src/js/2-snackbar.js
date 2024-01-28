@@ -3,11 +3,6 @@ import 'izitoast/dist/css/iziToast.min.css';
 
 const registerForm = document.querySelector('.form');
 registerForm.addEventListener('submit', handleSubmit);
-const options = {
-  value: '',
-  delay: 1000,
-  shouldResolve: true,
-};
 
 iziToast.settings({
   theme: 'dark',
@@ -21,16 +16,17 @@ iziToast.settings({
 function handleSubmit(e) {
   e.preventDefault();
   const form = e.target.elements;
-  options.delay = form.delay.value;
-  if (form.state.value === 'fulfilled') {
-    options.shouldResolve = true;
-    options.value = `Fulfilled promise in ${options.delay}ms`;
+  let shouldResolve;
+  let value;
+  if (form.state[0].checked) {
+    shouldResolve = true;
+    value = `Fulfilled promise in ${form.delay.value} ms`;
   } else  {
-    options.shouldResolve = false;
-    options.value = `Rejected promise in ${options.delay}ms`;
+    shouldResolve = false;
+    value = `Rejected promise in ${form.delay.value} ms`;
   }
 
-  makePromise(options)
+  makePromise(value, form.delay.value, shouldResolve)
     .then(value =>
       iziToast.success({
         class: 'izi-toast-success-style',
@@ -54,7 +50,7 @@ function handleSubmit(e) {
     this.reset();
 }
 
-const makePromise = ({ value, delay, shouldResolve }) => {
+const makePromise = (value, delay, shouldResolve) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (shouldResolve) {

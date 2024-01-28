@@ -3,13 +3,13 @@ import 'flatpickr/dist/flatpickr.min.css';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
-const inputDate = document.getElementById('datetime-picker');
+const dateTimePicker = document.getElementById('datetime-picker');
 const btn = document.querySelector('[data-start]');
 const days = document.querySelector('[data-days]');
 const hours = document.querySelector('[data-hours]');
 const minutes = document.querySelector('[data-minutes]');
 const seconds = document.querySelector('[data-seconds]');
-let userSelectedDate = {};
+let userSelectedDate;
 //disable button
 btn.disabled = true;
 
@@ -25,7 +25,7 @@ iziToast.settings({
   transitionOut: 'flipOutX',
 });
 
-const options = {
+const flatpickrOptions = {
   enableTime: true,
   time_24hr: true,
   defaultDate: new Date(),
@@ -42,7 +42,7 @@ const options = {
     }
   },
 };
-flatpickr('#datetime-picker', options);
+flatpickr('#datetime-picker', flatpickrOptions);
 
 function convertMs(ms) {
   // Number of milliseconds per unit of time
@@ -62,21 +62,32 @@ function convertMs(ms) {
 
   return { days, hours, minutes, seconds };
 }
+function addZeroToTimer(timerObj) {
+  days.textContent = timerObj.days.toString().padStart(2, '0');
+  hours.textContent = timerObj.hours.toString().padStart(2, '0');
+  minutes.textContent = timerObj.minutes.toString().padStart(2, '0');
+  seconds.textContent = timerObj.seconds.toString().padStart(2, '0');
+}
+function resetTimer() {
+  days.textContent = '00';
+  hours.textContent = '00';
+  minutes.textContent = '00';
+  seconds.textContent = '00';
+}
 
 btn.addEventListener('click', () => {
-  inputDate.disabled = true;
+  //disable pick new date after click start
+  dateTimePicker.disabled = true;
   btn.disabled = true;
   const currentTime = new Date().getTime();
   let msToCount = userSelectedDate.getTime() - currentTime;
-  const IntervalId = setInterval(function () {
+  const intervalId = setInterval(function () {
     const timerObj = convertMs(msToCount);
-    days.textContent = timerObj.days.toString().padStart(2, '0');
-    hours.textContent = timerObj.hours.toString().padStart(2, '0');
-    minutes.textContent = timerObj.minutes.toString().padStart(2, '0');
-    seconds.textContent = timerObj.seconds.toString().padStart(2, '0');
+    addZeroToTimer(timerObj);
     msToCount -= 1000;
-    if (msToCount <= 1000) {
-      clearInterval(IntervalId);
+    if (msToCount <= 0) {
+      clearInterval(intervalId);
+      resetTimer();
       iziToast.show({
         message: 'Time up',
       });
